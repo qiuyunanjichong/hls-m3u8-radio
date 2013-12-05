@@ -222,7 +222,21 @@
 			<artifactId>spring-rabbit</artifactId>
 			<version>${spring.amqp.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore-nio</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 		<!-- <dependency> <groupId>com.ximalaya</groupId> <artifactId>audio-ffmpeg</artifactId> 
 			<version>1.0.4-SNAPSHOT</version> </dependency> -->
 	</dependencies>

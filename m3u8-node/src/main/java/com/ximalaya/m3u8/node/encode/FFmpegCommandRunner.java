@@ -118,7 +118,7 @@ public class FFmpegCommandRunner {
 				isRunning = true;
 				if (null == handler) {
 					handler = new DefaultProcessCallbackHandler();
-				}
+				} 
 				log.info("inputStream" + handler.handle(pro.getInputStream()));
 				// log.info("inputStream" +
 				// handler.handle(pro.getOutputStream()));
@@ -132,16 +132,15 @@ public class FFmpegCommandRunner {
 				// if (log.isDebugEnabled()) {
 				// log.debug(result);
 				// }
-				// try {
-				// int flag = pro.waitFor();
-				// if (flag != 0) {
-				// throw new
-				// IllegalThreadStateException("process exit with error value :"
-				// + flag);
-				// }
-				// } catch (InterruptedException e) {
-				// log.error("wait for process finish error.", e);
-				// }
+				try {
+					int flag = pro.waitFor();
+					if (flag != 0) {
+						throw new IllegalThreadStateException(
+								"process exit with error value :" + flag);
+					}
+				} catch (InterruptedException e) {
+					log.error("wait for process finish error.", e);
+				}
 			} finally {
 				if (null != pro) {
 					pro.destroy();

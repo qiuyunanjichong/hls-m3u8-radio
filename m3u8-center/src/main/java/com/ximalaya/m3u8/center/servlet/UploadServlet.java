@@ -50,9 +50,8 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         BufferedOutputStream bos = null;
-        String albumName = request.getParameter("album");
-        String audioName = request.getParameter("audio");
-        String fileName = request.getParameter("file");
+        String albumName = request.getParameter("tsdir");
+        String audioName = request.getParameter("tsname");
         File newFile = null;
 //        Configuration config = CenterContext.getBean("config", Configuration.class);
         StringBuffer dirPath = new StringBuffer(config.getRootAudioPath());
