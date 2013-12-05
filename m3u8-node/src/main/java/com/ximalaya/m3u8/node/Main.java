@@ -5,6 +5,7 @@ package com.ximalaya.m3u8.node;
 
 import java.io.IOException;
 
+import com.ximalaya.m3u8.common.Constant;
 import com.ximalaya.m3u8.node.encode.FFmpegCommandRunner;
 
 /**
@@ -14,11 +15,11 @@ import com.ximalaya.m3u8.node.encode.FFmpegCommandRunner;
  */
 public class Main {
 
-    public static String m3u8Dir = "m3u8-tmp";
+    public static String m3u8Dir = Constant.BB_m3u8_Dir;
 
-    public static String tsDir = "ts-tmp";
+    public static String tsDir = Constant.BB_ts_Dir;
 
-    public static String segmentName = "bbradio";
+    public static String segmentName = Constant.BB_segmentName;
 
     public static void main(String[] args) throws IOException {
         Thread thread = new Thread(new Runnable() {

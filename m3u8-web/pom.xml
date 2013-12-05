@@ -1,21 +1,23 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.ximalaya</groupId>
 		<artifactId>hls-m3u8-radio</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>m3u8-center</artifactId>
+	<groupId>com.ximalaya</groupId>
+	<artifactId>m3u8-web</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 
-	<name>m3u8-center</name>
+	<name>m3u8-web</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.amqp.version>1.1.4.RELEASE</spring.amqp.version>
 	</properties>
 	<build>
 		<finalName>m3u8-center</finalName>
@@ -218,12 +220,8 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
-		<dependency>
-			<groupId>com.ximalaya</groupId>
-			<artifactId>m3u8-common</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -235,15 +233,8 @@
 			<artifactId>servlet-api</artifactId>
 			<version>6.0.33</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.amqp</groupId>
-			<artifactId>spring-rabbit</artifactId>
-			<version>${spring.amqp.version}</version>
-		</dependency>
-
-		<!-- <dependency> <groupId>com.ximalaya</groupId> <artifactId>audio-ffmpeg</artifactId> 
-			<version>1.0.4-SNAPSHOT</version> </dependency> -->
 	</dependencies>
+
 	<profiles>
 		<profile>
 			<id>base</id>

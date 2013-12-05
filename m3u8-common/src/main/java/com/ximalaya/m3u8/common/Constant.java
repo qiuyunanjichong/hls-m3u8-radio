@@ -9,4 +9,9 @@ public interface Constant {
 
     static final Integer SEGMENT_SIZE = 7;
 
+    static String BB_m3u8_Dir = "bb-m3u8";
+
+    static String BB_ts_Dir = "bb-ts";
+
+    static String BB_segmentName = "bb-radio";
 }
