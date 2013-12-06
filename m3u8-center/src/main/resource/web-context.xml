@@ -16,29 +16,28 @@
 	default-lazy-init="true">
 	<!-- 启用注解 <context:annotation-config /> -->
 	<!-- 扫描配置包中注解，启用该配置项后可以省略annotation-config配置 -->
-	<context:component-scan base-package="com.ximalaya" />
-	<mvc:resources location="/js/" mapping="/js/**" />
-	<mvc:resources location="/css/" mapping="/css/**" />
-	<mvc:resources location="/html/" mapping="/html/**" />
-	<!-- velocity config -->
-	<bean id="velocityConfig"
-		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-		<property name="resourceLoaderPath" value="/WEB-INF/tpl/" />
-		<property name="configLocation" value="/WEB-INF/classes/velocity.properties" />
-	</bean>
+	<mvc:annotation-driven />
+	<context:annotation-config />
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-		<property name="cache" value="false" />
-		<property name="prefix" value="" />
-		<property name="suffix" value=".vm" />
-		<property name="toolboxConfigLocation" value="/WEB-INF/classes/toolbox.xml" />
-		<property name="exposeSpringMacroHelpers" value="true" />
-		<property name="exposeRequestAttributes" value="true" />
-		<property name="exposeSessionAttributes" value="true" />
-		<property name="allowSessionOverride" value="true" />
-		<property name="allowRequestOverride" value="true" />
-	</bean>
+	<context:component-scan base-package="com.ximalaya" />
+
+	<!-- <mvc:resources location="/js/" mapping="/js/**" /> <mvc:resources location="/css/" 
+		mapping="/css/**" /> <mvc:resources location="/html/" mapping="/html/**" 
+		/> -->
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>classpath:conf.properties</value> 
+		</list> </property> </bean> -->
+	<!-- velocity config -->
+	<!-- <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer"> 
+		<property name="resourceLoaderPath" value="/WEB-INF/tpl/" /> <property name="configLocation" 
+		value="/WEB-INF/classes/velocity.properties" /> </bean> <bean id="viewResolver" 
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver"> 
+		<property name="cache" value="false" /> <property name="prefix" value="" 
+		/> <property name="suffix" value=".vm" /> <property name="toolboxConfigLocation" 
+		value="/WEB-INF/classes/toolbox.xml" /> <property name="exposeSpringMacroHelpers" 
+		value="true" /> <property name="exposeRequestAttributes" value="true" /> 
+		<property name="exposeSessionAttributes" value="true" /> <property name="allowSessionOverride" 
+		value="true" /> <property name="allowRequestOverride" value="true" /> </bean> -->
 
 	<!-- 配置类的@requestMapping -->
 	<bean id="handlerMapping"

@@ -2,6 +2,9 @@ package com.ximalaya.m3u8.node;
 
 import java.util.zip.CRC32;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  * Hello world!
  *
@@ -32,5 +35,8 @@ public class App {
 //        t.start();
 //        t
         System.out.println(System.getProperties().getProperty("os.name").equals("Mac OS X"));
+        
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                new String[] { "classpath:applicationContext.xml" });
     }
 }

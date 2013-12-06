@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Servlet implementation class UploadServlet
@@ -28,7 +29,8 @@ public class UploadServlet extends HttpServlet {
 
     private final static Logger log = LoggerFactory.getLogger(UploadServlet.class);
 
-//    private static final MessageLogger log = LoggerFactory.getLogger(UploadServlet.class);
+    @Value("${m3u8.center.upload.rootpath}")
+    private String rootPath;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,16 +52,21 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         BufferedOutputStream bos = null;
-        String albumName = request.getParameter("tsdir");
-        String audioName = request.getParameter("tsname");
+        String dirName = request.getParameter("tsdir");
+        String tsName = request.getParameter("tsname");
         File newFile = null;
+        log.info("-------->" + dirName + "------" + tsName + "--------" + rootPath);
 //        Configuration config = CenterContext.getBean("config", Configuration.class);
-        StringBuffer dirPath = new StringBuffer(config.getRootAudioPath());
-        dirPath.append(File.separator).append(albumName).append(File.separator).append(audioName);
+        StringBuffer dirPath = new StringBuffer(rootPath);
+//        System.out.println("--------" + rootPath + "--------");
+//        StringBuffer dirPath = new StringBuffer(config.getRootAudioPath());
+        dirPath.append(File.separator).append(dirName);
         File dir = new File(dirPath.toString());
+//        File dir = new File(dirName /* + File.separator + tsName */);
         try {
             dir.mkdirs();
-            newFile = new File(dirPath.toString() + File.separator + fileName);
+//            newFile = new File(dirPath.toString() + File.separator + fileName);
+            newFile = new File(dirName + File.separator + tsName);
             newFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(newFile);
             bos = new BufferedOutputStream(fos);
@@ -71,7 +78,7 @@ public class UploadServlet extends HttpServlet {
             }
             bos.flush();
         } catch (Throwable t) {
-            log.error("upload file error, file title is {0}", t, fileName);
+            log.error("upload file error, file title is {0}", t, tsName);
             response.getWriter().write("ERROR");
         } finally {
             if (bos != null)

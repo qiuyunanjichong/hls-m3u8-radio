@@ -19,11 +19,11 @@
 	<bean id="hessianHandler"
 		class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter" />
 
-	<bean name="/taskservice"
+	<!-- <bean name="/taskservice"
 		class="org.springframework.remoting.caucho.HessianServiceExporter">
 		<property name="service" ref="taskService" />
 		<property name="serviceInterface"
 			value="com.ximalaya.crawler.common.service.ITaskService" />
-	</bean>
+	</bean> -->
 
 </beans>

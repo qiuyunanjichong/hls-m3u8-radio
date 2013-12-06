@@ -3,6 +3,8 @@
  */
 package com.ximalaya.m3u8.center.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.ximalaya.m3u8.common.service.INotifyService;
 
 /**
@@ -12,8 +14,12 @@ import com.ximalaya.m3u8.common.service.INotifyService;
  */
 public class NotifyService implements INotifyService {
 
+    @Value("${m3u8.center.upload.rootpath}")
+    private String rootPath;
+    
     @Override
     public Integer notify(String dirName, String segmentName) {
+//        rootPath
         return null;
     }
 

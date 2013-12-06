@@ -74,7 +74,7 @@
 		<servlet-name>hessian</servlet-name>
 		<url-pattern>/hessian/*</url-pattern>
 	</servlet-mapping>
-	<servlet>
+<!-- 	<servlet>
 		<description>big binary data upload</description>
 		<display-name>UploadServlet</display-name>
 		<servlet-name>UploadServlet</servlet-name>
@@ -83,7 +83,7 @@
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
 		<url-pattern>/upload.do</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
