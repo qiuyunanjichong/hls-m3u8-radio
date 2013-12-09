@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ximalaya.m3u8.center.TestBean;
+
 /**
- * 
+ * node upload *.ts to center by HTTP-POST
  * @author caorong created on 2013-12-6
  * @since 1.0
  */
@@ -32,6 +35,9 @@ public class UploadController {
 
     @Value("${m3u8.center.upload.rootpath}")
     private String rootPath;
+
+    @Autowired
+    private TestBean test;
 
     @RequestMapping(value = "/upload/tsdir/{tsdir}/tsname/{tsname}", method = RequestMethod.POST)
     @ResponseBody

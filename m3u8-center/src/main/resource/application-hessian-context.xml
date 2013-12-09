@@ -19,11 +19,11 @@
 	<bean id="hessianHandler"
 		class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter" />
 
-	<!-- <bean name="/taskservice"
+	<bean name="/notifyservice"
 		class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="taskService" />
+		<property name="service" ref="notifyService" />
 		<property name="serviceInterface"
-			value="com.ximalaya.crawler.common.service.ITaskService" />
-	</bean> -->
+			value="com.ximalaya.m3u8.common.service.INotifyService" />
+	</bean>
 
 </beans>

@@ -230,7 +230,7 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -241,7 +241,11 @@
 			<artifactId>spring-rabbit</artifactId>
 			<version>${spring.amqp.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.3.2.RELEASE</version>
+		</dependency>
 		<!-- <dependency> <groupId>com.ximalaya</groupId> <artifactId>audio-ffmpeg</artifactId> 
 			<version>1.0.4-SNAPSHOT</version> </dependency> -->
 	</dependencies>

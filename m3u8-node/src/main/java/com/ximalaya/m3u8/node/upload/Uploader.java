@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import com.ximalaya.m3u8.common.Constant;
 import com.ximalaya.m3u8.common.util.BlockingThreadPoolExecutor;
+import com.ximalaya.m3u8.common.service.INotifyService;
 
 /**
  * find *.ts and upload it automaticly
@@ -34,11 +35,14 @@ public class Uploader implements InitializingBean {
     private ExecutorService executorService = new BlockingThreadPoolExecutor(1, 20, new ArrayBlockingQueue<Runnable>(
             200));
 
-    @Value("${m3u8.center.upload.url}")
+    @Value("${m3u8.center.url}")
     private String uploadAddress;
 
     @Autowired
     private HttpUpload httpUpload;
+
+    @Autowired
+    private INotifyService notifyService;
 
     @Override
     public void afterPropertiesSet() {
@@ -75,6 +79,8 @@ public class Uploader implements InitializingBean {
                                     .append(sortedFiles[i].getName());
                             // upload f
                             upload(url.toString(), sortedFiles[i]);
+                            // notify center
+                            notifyService.notify(Constant.BB_ts_Dir, sortedFiles[i].getName());
                         }
                         // sleep
                         Thread.sleep(1000 * 2);
