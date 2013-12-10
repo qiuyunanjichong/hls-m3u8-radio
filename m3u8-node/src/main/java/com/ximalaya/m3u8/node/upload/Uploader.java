@@ -81,9 +81,11 @@ public class Uploader implements InitializingBean {
                             upload(url.toString(), sortedFiles[i]);
                             // notify center
                             notifyService.notify(Constant.BB_ts_Dir, sortedFiles[i].getName());
+                            // delete file
+                            FileUtils.deleteQuietly(sortedFiles[i]);
                         }
                         // sleep
-                        Thread.sleep(1000 * 2);
+                        Thread.sleep(1000 * 5);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

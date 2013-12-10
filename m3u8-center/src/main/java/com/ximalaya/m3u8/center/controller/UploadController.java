@@ -36,9 +36,6 @@ public class UploadController {
     @Value("${m3u8.center.upload.rootpath}")
     private String rootPath;
 
-    @Autowired
-    private TestBean test;
-
     @RequestMapping(value = "/upload/tsdir/{tsdir}/tsname/{tsname}", method = RequestMethod.POST)
     @ResponseBody
     public String uploadts(HttpServletRequest request, @PathVariable

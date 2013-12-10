@@ -28,7 +28,6 @@
 		</property>
 	</bean>
 
-	<bean id="testbean" class="com.ximalaya.m3u8.center.TestBean"></bean>
 	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" 
 		destroy-method="close"> <property name="driverClass"> <value>${jdbc.driver}</value> 
 		</property> <property name="jdbcUrl"> <value>${jdbc.url}</value> </property> 

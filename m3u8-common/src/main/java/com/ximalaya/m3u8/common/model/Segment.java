@@ -12,24 +12,19 @@ public class Segment {
 
     private String id;
 
-    private String name;
+    private String radioname;
 
-    private String dir;
+    private Long index;
+
+    private String abspath;
 
     private Long timestamp;
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Segment [id=").append(id).append(", name=").append(name).append(", dir=").append(dir)
-                .append(", timestamp=").append(timestamp).append("]");
-        return builder.toString();
-    }
-
-    public Segment(String name, String dir, Long timestamp) {
+    public Segment(String radioname, Long index, String abspath, Long timestamp) {
         super();
-        this.name = name;
-        this.dir = dir;
+        this.radioname = radioname;
+        this.index = index;
+        this.abspath = abspath;
         this.timestamp = timestamp;
     }
 
@@ -41,20 +36,28 @@ public class Segment {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRadioname() {
+        return radioname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRadioname(String radioname) {
+        this.radioname = radioname;
     }
 
-    public String getDir() {
-        return dir;
+    public Long getIndex() {
+        return index;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setIndex(Long index) {
+        this.index = index;
+    }
+
+    public String getAbspath() {
+        return abspath;
+    }
+
+    public void setAbspath(String abspath) {
+        this.abspath = abspath;
     }
 
     public Long getTimestamp() {
