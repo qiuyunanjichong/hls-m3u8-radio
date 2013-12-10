@@ -30,126 +30,141 @@ import com.ximalaya.m3u8.common.service.INotifyService;
 @Component
 public class Uploader implements InitializingBean {
 
-    private final static Logger log = LoggerFactory.getLogger(Uploader.class);
+	private final static Logger log = LoggerFactory.getLogger(Uploader.class);
 
-    private ExecutorService executorService = new BlockingThreadPoolExecutor(1, 20, new ArrayBlockingQueue<Runnable>(
-            200));
+	private ExecutorService executorService = new BlockingThreadPoolExecutor(1,
+			20, new ArrayBlockingQueue<Runnable>(200));
 
-    @Value("${m3u8.center.url}")
-    private String uploadAddress;
+	@Value("${m3u8.center.url}")
+	private String uploadAddress;
 
-    @Autowired
-    private HttpUpload httpUpload;
+	@Autowired
+	private HttpUpload httpUpload;
 
-    @Autowired
-    private INotifyService notifyService;
+	@Autowired
+	private INotifyService notifyService;
 
-    @Override
-    public void afterPropertiesSet() {
+	@Override
+	public void afterPropertiesSet() {
 
-        // .append(audio.getAlbumId()).append("&audio=")
-        // .append(audio.getId()).append("&file=");
+		// .append(audio.getAlbumId()).append("&audio=")
+		// .append(audio.getId()).append("&file=");
 
-        new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
-            @Override
-            public void run() {
+			@Override
+			public void run() {
 
-                while (true) {
-                    try {
-                        File tsDir = new File(Constant.BB_ts_Dir);
-                        File[] sortedFiles = sortedFiles(tsDir);
-                        for (File f : sortedFiles) {
-//                         System.out.println(f.lastModified());
-                            System.out.println(f);
-                        }
-                        // only upload old file
-                        for (int i = 0; i < sortedFiles.length - 1; i++) {
-                            // change name and 组装 url
-//                            File oldf = sortedFiles[i];
-//							File newf = 
-//							tmpf.renameTo( )
-                            // servlet
-//                            StringBuffer url = new StringBuffer().append("http://").append(uploadAddress)
-//                                    .append("/m3u8-center/upload.do?tsdir=").append(Constant.BB_ts_Dir)
-//                                    .append("&tsname=").append(sortedFiles[i].getName());
-                            // controller 
-                            StringBuffer url = new StringBuffer().append("http://").append(uploadAddress)
-                                    .append("/m3u8-center/upload/tsdir/").append(Constant.BB_ts_Dir).append("/tsname/")
-                                    .append(sortedFiles[i].getName());
-                            // upload f
-                            upload(url.toString(), sortedFiles[i]);
-                            // notify center
-                            notifyService.notify(Constant.BB_ts_Dir, sortedFiles[i].getName());
-                            // delete file
-                            FileUtils.deleteQuietly(sortedFiles[i]);
-                        }
-                        // sleep
-                        Thread.sleep(1000 * 5);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, ".ts-uploader").start();
-    }
+				while (true) {
+					try {
+						File tsDir = new File(Constant.BB_ts_Dir);
+						File[] sortedFiles = sortedFiles(tsDir);
+						if (sortedFiles != null) {
+							for (File f : sortedFiles) {
+								// System.out.println(f.lastModified());
+								System.out.println(f);
+							}
+							// only upload old file
+							for (int i = 0; i < sortedFiles.length - 1; i++) {
+								// change name and 组装 url
+								// File oldf = sortedFiles[i];
+								// File newf =
+								// tmpf.renameTo( )
+								// servlet
+								// StringBuffer url = new
+								// StringBuffer().append("http://").append(uploadAddress)
+								// .append("/m3u8-center/upload.do?tsdir=").append(Constant.BB_ts_Dir)
+								// .append("&tsname=").append(sortedFiles[i].getName());
+								// controller
+								StringBuffer url = new StringBuffer()
+										.append("http://")
+										.append(uploadAddress)
+										.append("/m3u8-center/upload/tsdir/")
+										.append(Constant.BB_ts_Dir)
+										.append("/tsname/")
+										.append(sortedFiles[i].getName());
+								// upload f
+								uploadAndNotify(url.toString(), sortedFiles[i]);
 
-    public void upload(final String url, final File f) {
+							}
+						} else {
+							log.info("get nothing!!!");
+						}
+						// sleep
+						Thread.sleep(1000 * 5);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}, ".ts-uploader").start();
+	}
 
-        executorService.submit(new Runnable() {
+	public void uploadAndNotify(final String url, final File f) {
 
-            @Override
-            public void run() {
-                // System.out.println(f);
-                try {
-                    log.debug("url {}", url);
-                    log.info("upload file [{}] status = {}", f.getName(), httpUpload.upload(url, f));
-                } catch (Exception e) {
-                    log.error("upload error !!!", e);
-                }
-            }
-        });
-    }
+		executorService.submit(new Runnable() {
 
-    /**
-     * get sorted dir array sorted by lastModified time
-     * 
-     * @param tsDir
-     * @return
-     */
-    public File[] sortedFiles(File tsDir) {
-        File[] oriFiles = tsDir.listFiles(new FilenameFilter() {
+			@Override
+			public void run() {
+				// System.out.println(f);
+				try {
+					log.debug("url {}", url);
+					String status = httpUpload.upload(url, f);
+					log.info("upload file [{}] status = {}", f.getName(),
+							status);
+					// notify center
+					notifyService.notify(Constant.BB_ts_Dir, f.getName());
+					// delete file
+					FileUtils.deleteQuietly(f);
+				} catch (Exception e) {
+					log.error("upload error !!!", e);
+				}
+			}
+		});
+	}
 
-            @Override
-            public boolean accept(File dir, String name) {
-                if (name.endsWith(".ts"))
-                    return true;
-                return false;
-            }
-        });
-        File[] sortedFiles = new File[oriFiles.length];
-        for (File f : oriFiles) {
-            for (int i = 0; i < oriFiles.length; i++) {
-                // System.out.println(sortedFiles[i]);
-                if (sortedFiles[i] != null) {
-                    if (f.lastModified() < sortedFiles[i].lastModified()) {
-                        // 后移
-                        for (int j = oriFiles.length - 1; j > i; j--) {
-                            sortedFiles[j] = sortedFiles[j - 1];
-                        }
-                        sortedFiles[i] = f;
-                        break;
-                    }
-                } else {
-                    sortedFiles[i] = f;
-                    break;
-                }
-            }
-        }
-        return sortedFiles;
-    }
+	/**
+	 * get sorted dir array sorted by lastModified time
+	 * 
+	 * @param tsDir
+	 * @return
+	 */
+	public File[] sortedFiles(File tsDir) {
+		File[] oriFiles = tsDir.listFiles(new FilenameFilter() {
 
-    public static void main(String[] args) {
-        new Uploader().afterPropertiesSet();
-    }
+			@Override
+			public boolean accept(File dir, String name) {
+				if (name.endsWith(".ts"))
+					return true;
+				return false;
+			}
+		});
+		File[] sortedFiles = null;
+		if (oriFiles != null && oriFiles.length > 0) {
+			sortedFiles = new File[oriFiles.length];
+			for (File f : oriFiles) {
+				for (int i = 0; i < oriFiles.length; i++) {
+					// System.out.println(sortedFiles[i]);
+					if (sortedFiles[i] != null) {
+						if (f.lastModified() < sortedFiles[i].lastModified()) {
+							// 后移
+							for (int j = oriFiles.length - 1; j > i; j--) {
+								sortedFiles[j] = sortedFiles[j - 1];
+							}
+							sortedFiles[i] = f;
+							break;
+						}
+					} else {
+						sortedFiles[i] = f;
+						break;
+					}
+				}
+			}
+		}
+		return sortedFiles;
+	}
+
+	public static void main(String[] args) {
+		new Uploader().afterPropertiesSet();
+	}
 }

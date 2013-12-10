@@ -7,3 +7,4 @@ lib/
 logs/
 *-tmp/
 *-ts/
+m3u8-node/bb-m3u8
