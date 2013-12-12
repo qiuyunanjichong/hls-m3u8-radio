@@ -1,4 +1,3 @@
-
 # under developing
 
 ### test
@@ -19,14 +18,14 @@ hls-m3u8-radio
 * m3u8-common  公用model 接口
 
 * m3u8-node  生成ts的worker
-ffmpeg 转码 每n秒upload一次文件
-将*.ts 发送给m3u8-center 并简单地保证文件完整性
+> ffmpeg 转码 每n秒upload一次文件
+> 将*.ts 发送给m3u8-center 并简单地保证文件完整性
 
 * m3u8-center
-接受worker上传的.ts 文件并统一命名，mv到nginx静态文件夹或者update到server，并存入mongo 
+> 接受worker上传的.ts 文件并统一命名，mv到nginx静态文件夹或者update到server，并存入mongo 
 
 * m3u8-web
-根据redis和mongodb 拼m3u8 发送给前台
+> 根据redis和mongodb 拼m3u8 发送给前台
 
 ### 一些问题及初步解决方案
 * m3u8-node 解决完整性的方法
