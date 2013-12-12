@@ -9,7 +9,7 @@ import com.ximalaya.m3u8.common.Constant;
 import com.ximalaya.m3u8.node.encode.FFmpegCommandRunner;
 
 /**
- * 
+ * just for test
  * @author caorong created on 2013-9-3
  * @since 1.0
  */

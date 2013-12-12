@@ -6,8 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Hello world!
- *
+ * runner for development
  */
 public class App {
 
@@ -35,7 +34,7 @@ public class App {
 //        t.start();
 //        t
         System.out.println(System.getProperties().getProperty("os.name").equals("Mac OS X"));
-        
+
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
                 new String[] { "classpath:applicationContext.xml" });
     }
